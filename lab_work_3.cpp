@@ -38,6 +38,12 @@ int main()
 
 
     // insert_edge/node
+
+    //graph.erase_node("A");
+    cout << "the size of graph after deleting A: " << graph.size() << endl;
+    graph.insert_node("A");
+
+
     graph.insert_edge("B", "D", 2);
     cout << "degree_out node B (after insert_edge B-D): " << graph.degree_out("B") << endl;
 

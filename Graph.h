@@ -214,12 +214,12 @@ public:
 	auto insert_node(Tnode node) //////////////////////////////////////////////
 
 	{	
-		auto tmp = nodes.insert(node);
-		int count = 0;
-		Graph<Tnode, Tweight>* tmp = tmp->first(); ///////õç
+		auto a = nodes.insert(node);
+		
+		int count = 0; 
 		
 
-		for (auto it = nodes.begin(); it = tmp; it++)
+		for (auto it = nodes.begin(); it != nodes.find(node); it++)
 		{
 			count++;
 		}
@@ -243,9 +243,9 @@ public:
 
 		}
 
-
 		adj = m;
-		return nodes.insert(node);
+
+		return a;
 	}
 
 
@@ -316,11 +316,7 @@ public:
 
 
 	void clear_edges() {
-		
-		Matrix<Tweight> tmp();
-		adj = tmp;
-
-	
+		adj = adj.zero();
 	}
 
 	bool erase_edges_go_from(Tnode key) {
@@ -367,7 +363,9 @@ public:
 			}
 		}
 
-		Matrix<Tweight> m(g_size - 1, g_size - 1);
+		g_size--;
+
+		Matrix<Tweight> m(g_size, g_size);
 
 		for (int i = 0; i < g_size; i++)
 		{

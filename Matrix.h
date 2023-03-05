@@ -14,10 +14,10 @@ class Matrix
 {
 private:
 	int cols, rows;						// sizes of matrix
-	T* data;							// pointer on array of elements
+	T* data;						// pointer on array of elements
 
 public:
-
+	
 	// default constructor
 	Matrix<T>()							
 	{
@@ -61,16 +61,22 @@ public:
 	}
 	
 	// copy constructor
-	Matrix<T>(const Matrix& matrix)		
+
+	Matrix<T>(const Matrix& matrix)
 	{
 		rows = matrix.rows;
 		cols = matrix.cols;
+		if(data != nullptr){
+
+			delete[] data;
+		}
 		data = new T[rows * cols];
 		for (int i = 0; i < rows*cols; i++)
 		{
 			data[i] = matrix.data[i];
 		}
 	}
+	
 
 	// move constructor
 	Matrix<T>(Matrix&& other)			
@@ -241,7 +247,23 @@ public:
 		return *this;
 	}
 	 
+	void clear()
+	{
+		cols = rows = 0;
+		data = nullptr;
+	}
 
+
+
+	Matrix<T> zero() {
+		//Matrix<T> matrix(size, size);
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				data[i * cols + j] = 0;
+			}
+		}
+		return *this;
+	}
 	
 
 	~Matrix<T>()

@@ -16,24 +16,24 @@ D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(291): message : во время 
               Tweight=int
           ]
 D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(307,15): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
-D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(343,13): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
-D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(339): message : во время компиляции функции-члена класс шаблон "bool Graph<std::string,int>::erase_edges_go_to(Tnode)"
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(339,13): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(335): message : во время компиляции функции-члена класс шаблон "bool Graph<std::string,int>::erase_edges_go_to(Tnode)"
           with
           [
               Tnode=std::string
           ]
-D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(52): message : выполняется компиляция ссылки на экземпляр шаблон функции "bool Graph<std::string,int>::erase_edges_go_to(Tnode)"
+D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(58): message : выполняется компиляция ссылки на экземпляр шаблон функции "bool Graph<std::string,int>::erase_edges_go_to(Tnode)"
           with
           [
               Tnode=std::string
           ]
-D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(330,13): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
-D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(326): message : во время компиляции функции-члена класс шаблон "bool Graph<std::string,int>::erase_edges_go_from(Tnode)"
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(326,13): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(322): message : во время компиляции функции-члена класс шаблон "bool Graph<std::string,int>::erase_edges_go_from(Tnode)"
           with
           [
               Tnode=std::string
           ]
-D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(49): message : выполняется компиляция ссылки на экземпляр шаблон функции "bool Graph<std::string,int>::erase_edges_go_from(Tnode)"
+D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(55): message : выполняется компиляция ссылки на экземпляр шаблон функции "bool Graph<std::string,int>::erase_edges_go_from(Tnode)"
           with
           [
               Tnode=std::string
