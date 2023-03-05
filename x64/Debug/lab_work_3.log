@@ -1,2 +1,79 @@
 ﻿  lab_work_3.cpp
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(282,15): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(253): message : во время компиляции функции-члена класс шаблон "auto Graph<std::string,int>::insert_edge(Tnode,Tnode,Tweight)"
+          with
+          [
+              Tnode=std::string,
+              Tweight=int
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(20): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "Graph<std::string,int>"
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(283,15): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(306,15): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(291): message : во время компиляции функции-члена класс шаблон "auto Graph<std::string,int>::insert_or_assign_edge(Tnode,Tnode,Tweight)"
+          with
+          [
+              Tnode=std::string,
+              Tweight=int
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(307,15): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(343,13): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(339): message : во время компиляции функции-члена класс шаблон "bool Graph<std::string,int>::erase_edges_go_to(Tnode)"
+          with
+          [
+              Tnode=std::string
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(52): message : выполняется компиляция ссылки на экземпляр шаблон функции "bool Graph<std::string,int>::erase_edges_go_to(Tnode)"
+          with
+          [
+              Tnode=std::string
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(330,13): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(326): message : во время компиляции функции-члена класс шаблон "bool Graph<std::string,int>::erase_edges_go_from(Tnode)"
+          with
+          [
+              Tnode=std::string
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(49): message : выполняется компиляция ссылки на экземпляр шаблон функции "bool Graph<std::string,int>::erase_edges_go_from(Tnode)"
+          with
+          [
+              Tnode=std::string
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(158,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(154): message : во время компиляции функции-члена класс шаблон "size_t Graph<std::string,int>::degree_out(Tnode)"
+          with
+          [
+              Tnode=std::string
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(34): message : выполняется компиляция ссылки на экземпляр шаблон функции "size_t Graph<std::string,int>::degree_out(Tnode)"
+          with
+          [
+              Tnode=std::string
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(130,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(125): message : во время компиляции функции-члена класс шаблон "size_t Graph<std::string,int>::degree_in(Tnode)"
+          with
+          [
+              Tnode=std::string
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(33): message : выполняется компиляция ссылки на экземпляр шаблон функции "size_t Graph<std::string,int>::degree_in(Tnode)"
+          with
+          [
+              Tnode=std::string
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(38,1): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Graph.h(35): message : во время компиляции функции-члена класс шаблон "Graph<std::string,int>::Graph(std::set<std::string,std::less<std::string>,std::allocator<std::string>>,Matrix<int>)"
+D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(20): message : выполняется компиляция ссылки на экземпляр шаблон функции "Graph<std::string,int>::Graph(std::set<std::string,std::less<std::string>,std::allocator<std::string>>,Matrix<int>)"
+D:\учеба\C++\lab_work_3\lab_work_3\Matrix.h(39,1): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\учеба\C++\lab_work_3\lab_work_3\Matrix.h(37): message : во время компиляции функции-члена класс шаблон "Matrix<int>::Matrix(std::initializer_list<std::initializer_list<T>>)"
+          with
+          [
+              T=int
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(12): message : выполняется компиляция ссылки на экземпляр шаблон функции "Matrix<int>::Matrix(std::initializer_list<std::initializer_list<T>>)"
+          with
+          [
+              T=int
+          ]
+D:\учеба\C++\lab_work_3\lab_work_3\lab_work_3.cpp(12): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "Matrix<int>"
+D:\учеба\C++\lab_work_3\lab_work_3\Matrix.h(40,1): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
   lab_work_3.vcxproj -> D:\учеба\C++\lab_work_3\x64\Debug\lab_work_3.exe

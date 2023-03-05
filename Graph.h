@@ -1,5 +1,4 @@
 #pragma once
-#include "Node.h"
 #include "Matrix.h"
 #include <set>
 #include <iostream>
@@ -17,35 +16,29 @@ struct Edge {
 };
 
 
-template <typename Tnode, typename Tweight>
+
+
+template <typename Tnode = double, typename Tweight = double>
 class Graph {
 
 private:
-//int size;
-	//list<Node<Tnode>> nodes;
-	//map <Tkey, Tnode> nodes;
+
 	set<Tnode> nodes;
 	Matrix<Tweight> adj;
 	int g_size;
-	//using iterator = typename map<Tkey, Tnode>::iterator;
-	//using const_iterator = typename map<Tkey, Tnode>::const_iterator;
 
 public:
-
-//	typedef OwnIterator	<Node<Tnode>> iterator;
-//	typedef OwnIterator <const Node<Tnode>> const_iterator;
 
 
 	Graph() = default;
 
+	Graph(set<Tnode> nodes_, Matrix<Tweight> adj_) {
+	
+		nodes = nodes_;
+		g_size = nodes.size();
+		adj = adj_;
 
-	//Graph(Matrix adj_, list nodes_) {
-	//
-	//	nodes = nodes_;
-	//	size = nodes.size();
-	//	adj = adj_;
-
-	//}
+	}
 
 	Graph(const Graph<Tnode, Tweight>& graph)
 	{
@@ -133,6 +126,9 @@ public:
 		size_t count = 0;
 		int index = 0;
 		try {
+
+			int flag = nodes.count(key);
+
 			for (auto it = nodes.begin(); it != nodes.end( ); it++) {
 				if (*it == key) { break; }
 				index++;
@@ -140,10 +136,10 @@ public:
 			
 			for (int i = 0; i < nodes.size(); i++)
 			{
-				if (adj[i][index] != 0) { count++; } // или индексы наоборот, проверить
+				if (adj(i, index) != 0) { count++; } 
 			}
 			
-			if (!count) {
+			if (!flag) {
 				exception error("key hasn't been found");
 				throw error;
 			}
@@ -159,6 +155,7 @@ public:
 	
 		size_t count = 0;
 		int index = 0;
+		int flag = nodes.count(key);
 		try {
 			
 			for (auto it = nodes.begin(); it != nodes.end(); it++) {
@@ -168,10 +165,10 @@ public:
 
 			for (int i = 0; i < nodes.size(); i++)
 			{
-				if (adj[index][i] != 0) { count++; } // или индексы наоборот, проверить
+				if (adj(index, i) != 0) { count++; } 
 			}
 
-			if (!count) {
+			if (!flag) {
 				exception error("key hasn't been found");
 				throw error;
 			}
@@ -191,16 +188,17 @@ public:
 
 		size_t count = 0;
 		try {
-			for (auto it = nodes.begin(); *it != key; it++) {
-				index++;
-			}
-
-			if (adj[index][index] == 0) { res = true; }
-
 			if (nodes.count(key) == 0) {
 				exception error("key hasn't been found");
 				throw error;
 			}
+
+			for (auto it = nodes.begin(); *it != key; it++) {
+				index++;
+			}
+
+			if (adj(index, index) != 0) { res = true; }
+
 		}
 		catch (exception& err) {
 			cout << err.what() << "\n";
@@ -212,13 +210,13 @@ public:
 	}
 	 
 
-
-	auto insert_node(Tnode node)
+	//////////
+	auto insert_node(Tnode node) //////////////////////////////////////////////
 
 	{	
-		auto tmp_ = nodes.insert(node);
+		auto tmp = nodes.insert(node);
 		int count = 0;
-		Graph<Tnode, Tweight>* tmp = tmp.first(); ///////хз
+		Graph<Tnode, Tweight>* tmp = tmp->first(); ///////хз
 		
 
 		for (auto it = nodes.begin(); it = tmp; it++)
@@ -230,9 +228,9 @@ public:
 
 		for (int i = 0; i < g_size; i++)
 		{
-			for (int j = 0, j < g_size; j++)
+			for (int j = 0; j < g_size; j++)
 			{
-				m[i][j] = adj[i][j];
+				m(i, j) = adj(i, j);
 			}
 		}
 
@@ -240,8 +238,8 @@ public:
 
 		for (int i = 0; i < g_size; i++) {
 
-			m[i][g_size] = 0;
-			m[g_size][i] = 0;
+			m(i, g_size) = 0;
+			m(g_size, i) = 0;
 
 		}
 
@@ -284,7 +282,7 @@ public:
 		int index_a = distance(nodes.begin(), nodes.find(a));
 		int index_b = distance(nodes.begin(), nodes.find(b));
 
-		adj[index_a][index_b] = w; ////или индексы по другому
+		adj(index_a, index_b) = w; ////или индексы по другому
 		
 		auto answer = make_pair(nodes.find(a), res);
 		return res;
@@ -308,7 +306,7 @@ public:
 		int index_a = distance(nodes.begin(), nodes.find(a));
 		int index_b = distance(nodes.begin(), nodes.find(b));
 
-		adj[index_a][index_b] = w; ////или индексы по другому
+		adj(index_a, index_b) = w; ////или индексы по другому
 		
 		auto answer = make_pair(nodes.find(a), res);
 		return res;
@@ -329,10 +327,10 @@ public:
 		
 		if (!nodes.count(key)) { return false; }
 
-		int index = distance(nodes.begin(), nodes.find(key));///ѕроверить что правильно идет файнд
+		int index = distance(nodes.begin(), nodes.find(key));
 		for (int i = 0; i < g_size; i++)
 		{
-			adj[index][i] = 0;
+			adj(index, i) = 0;
 		}
 		
 		return true;
@@ -342,10 +340,10 @@ public:
 	
 		if (!nodes.count(key)) { return false; }
 
-		int index = distance(nodes.begin(), nodes.find(key));///ѕроверить что правильно идет файнд
+		int index = distance(nodes.begin(), nodes.find(key));
 		for (int i = 0; i < g_size; i++)
 		{
-			adj[i][index] = 0;
+			adj(i, index) = 0;
 		}
 
 		return true;
@@ -364,8 +362,8 @@ public:
 		{
 			for (int j = index; j < g_size-1; j++)
 			{
-				adj[i][index] = adj[i][index + 1];
-				adj[index][i] = adj[index + 1][i];
+				adj(i, index) = adj(i, index + 1);
+				adj(index, i) = adj(index + 1, i);
 			}
 		}
 
@@ -375,7 +373,7 @@ public:
 		{
 			for (int j = 0; j < g_size; j++)
 			{
-				m[i][j] = adj[i][j];
+				m(i, j) = adj(i, j);
 			}
 		}
 
@@ -387,17 +385,7 @@ public:
 
 
 
-	bool load_from_file(const string &path) {
-		
-		ifstream in(path);
-		if (in.is_open()) {
-			string line;
-			int condition = 0;
-
-		}
-
-	
-	}
+	bool load_from_file(const string& path) {}
 
 
 	void save_to_file(const string &path) {}
