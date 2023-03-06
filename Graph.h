@@ -7,17 +7,6 @@
 using namespace std;
 
 
-
-template <typename Tnode = int, typename Tweight = int>
-struct Edge {
-	Tnode a_node;
-	Tnode b_node;
-	Tweight weight;
-};
-
-
-
-
 template <typename Tnode = double, typename Tweight = double>
 class Graph {
 
@@ -33,7 +22,7 @@ public:
 	Graph() = default;
 
 	Graph(set<Tnode> nodes_, Matrix<Tweight> adj_) {
-	
+
 		nodes = nodes_;
 		g_size = nodes.size();
 		adj = adj_;
@@ -83,22 +72,21 @@ public:
 		return nodes.empty();
 	}
 
-	size_t size() const{
+	size_t size() const {
 		return nodes.size();
 	}
 
 	void clear() {
 		nodes.clear();
-		adj.clear();  // разобраться с matrix.clear()
+		adj.clear();  
 		g_size = 0;
 	}
 
 	void swap(Graph<Tnode, Tweight> g) {
 
-		Graph<Tnode, Tweight> *tmp = this;
+		Graph<Tnode, Tweight>* tmp = this;
 		this = &g;
 		&g = this;
-		//наверное лучше прописать своп у матриц и у ноды
 		tmp.clear();
 
 	}
@@ -129,18 +117,18 @@ public:
 
 			int flag = nodes.count(key);
 
-			for (auto it = nodes.begin(); it != nodes.end( ); it++) {
+			for (auto it = nodes.begin(); it != nodes.end(); it++) {
 				if (*it == key) { break; }
 				index++;
 			}
-			
+
 			for (int i = 0; i < nodes.size(); i++)
 			{
-				if (adj(i, index) != 0) { count++; } 
+				if (adj(i, index) != 0) { count++; }
 			}
-			
+
 			if (!flag) {
-				exception error("key hasn't been found");
+				std::invalid_argument error("key hasn't been found");
 				throw error;
 			}
 		}
@@ -152,12 +140,12 @@ public:
 	}
 
 	size_t degree_out(Tnode key) {
-	
+
 		size_t count = 0;
 		int index = 0;
 		int flag = nodes.count(key);
 		try {
-			
+
 			for (auto it = nodes.begin(); it != nodes.end(); it++) {
 				if (*it == key) { break; }
 				index++;
@@ -165,11 +153,11 @@ public:
 
 			for (int i = 0; i < nodes.size(); i++)
 			{
-				if (adj(index, i) != 0) { count++; } 
+				if (adj(index, i) != 0) { count++; }
 			}
 
 			if (!flag) {
-				exception error("key hasn't been found");
+				std::invalid_argument error("key hasn't been found");
 				throw error;
 			}
 		}
@@ -178,7 +166,7 @@ public:
 		}
 
 		return count;
-	
+
 	}
 
 
@@ -189,7 +177,7 @@ public:
 		size_t count = 0;
 		try {
 			if (nodes.count(key) == 0) {
-				exception error("key hasn't been found");
+				std::invalid_argument error("key hasn't been found");
 				throw error;
 			}
 
@@ -208,22 +196,22 @@ public:
 
 
 	}
-	 
+
 
 	//////////
-	auto insert_node(Tnode node) //////////////////////////////////////////////
+	auto insert_node(Tnode node) 
 
-	{	
+	{
 		auto a = nodes.insert(node);
-		
-		int count = 0; 
-		
+
+		int count = 0;
+
 
 		for (auto it = nodes.begin(); it != nodes.find(node); it++)
 		{
 			count++;
 		}
-		
+
 		Matrix<Tweight> m(g_size + 1, g_size + 1);
 
 		for (int i = 0; i < g_size; i++)
@@ -251,12 +239,12 @@ public:
 
 
 	auto insert_edge(Tnode a, Tnode b, Tweight w) {
-		
+
 		bool res = true;
 		try {
-			if (nodes.count(a)==0 || nodes.count(b) == 0){
+			if (nodes.count(a) == 0 || nodes.count(b) == 0) {
 				res = false;
-				exception error("key hasn't been found");
+				std::invalid_argument error("key hasn't been found");
 				throw error;
 			}
 
@@ -264,37 +252,24 @@ public:
 		catch (exception& err) {
 			cout << err.what() << "\n";
 		}
+
 		
-		/*
-		int index_a = 0;
-		int index_b = 0;
-
-		for (auto it = nodes.begin(); *it != a; it++)
-		{
-			index_a++;
-		}
-
-		for (auto it = nodes.begin(); *it != b; it++)
-		{
-			index_b++;
-		}
-		*/
 		int index_a = distance(nodes.begin(), nodes.find(a));
 		int index_b = distance(nodes.begin(), nodes.find(b));
 
-		adj(index_a, index_b) = w; ////или индексы по другому
-		
+		adj(index_a, index_b) = w; 
+
 		auto answer = make_pair(nodes.find(a), res);
 		return res;
 	}
 
 	auto insert_or_assign_edge(Tnode a, Tnode b, Tweight w) {
-	
+
 		bool res = true;
 		try {
 			if (nodes.count(a) == 0 || nodes.count(b) == 0) {
 				res = false;
-				exception error("key hasn't been found");
+				std::invalid_argument error("key hasn't been found");
 				throw error;
 			}
 
@@ -302,16 +277,16 @@ public:
 		catch (exception& err) {
 			cout << err.what() << "\n";
 		}
-	
+
 		int index_a = distance(nodes.begin(), nodes.find(a));
 		int index_b = distance(nodes.begin(), nodes.find(b));
 
-		adj(index_a, index_b) = w; ////или индексы по другому
-		
+		adj(index_a, index_b) = w; 
+
 		auto answer = make_pair(nodes.find(a), res);
 		return res;
-	
-	
+
+
 	}
 
 
@@ -320,7 +295,7 @@ public:
 	}
 
 	bool erase_edges_go_from(Tnode key) {
-		
+
 		if (!nodes.count(key)) { return false; }
 
 		int index = distance(nodes.begin(), nodes.find(key));
@@ -328,12 +303,12 @@ public:
 		{
 			adj(index, i) = 0;
 		}
-		
+
 		return true;
 	}
 
 	bool erase_edges_go_to(Tnode key) {
-	
+
 		if (!nodes.count(key)) { return false; }
 
 		int index = distance(nodes.begin(), nodes.find(key));
@@ -343,20 +318,20 @@ public:
 		}
 
 		return true;
-	
+
 	}
 
 	bool erase_node(Tnode key) {
-		
+
 		if (!nodes.count(key)) { return false; }
-	
+
 		int index = distance(nodes.begin(), nodes.find(key));
 
 		nodes.erase(key);
 
-		for (int i = 0; i < g_size-1; i++)
+		for (int i = 0; i < g_size - 1; i++)
 		{
-			for (int j = index; j < g_size-1; j++)
+			for (int j = index; j < g_size - 1; j++)
 			{
 				adj(i, index) = adj(i, index + 1);
 				adj(index, i) = adj(index + 1, i);
@@ -378,15 +353,51 @@ public:
 		adj = m;
 
 		return true;
+
+	}
+
+
+	bool load_from_file(const string& path) {
+	
+		ifstream in;
+		in.open(path);
+		if (!in) { return false; }
+
+		int n;
+		in >> n;
+		for (auto i = 0; i < n; i++)
+		{
+			Tnode tmp;
+			in >> tmp;
+			insert_node(tmp);
+		}
+
+		in >> adj;
+		in.close();
+		return true;
 	
 	}
 
 
 
-	bool load_from_file(const string& path) {}
+	bool save_to_file(const string &path) {
+	
+		ofstream out;
+		out.open(path);
+		if (!out) { return false; }
 
+		out << g_size;
+		out << "\nnodes: \n";
+		for (auto it = nodes.begin(); it!=nodes.end(); it++)
+		{
+			out << *it;
+		}
 
-	void save_to_file(const string &path) {}
+		out << "\nadjacency matrix: \n";
+		out << adj;
+		out.close();
+		return true;
+	}
 
 
 

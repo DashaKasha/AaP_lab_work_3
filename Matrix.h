@@ -5,11 +5,7 @@
 using namespace std;
 
 
-
-
-//static_assert(std::is_same<initializer_list<T>, T>, false);
-//std::is_same<T, int>::value || std::is_same<T, double>::value;
-template <typename T = double>//, typename T2>
+template <typename T = double>
 class Matrix
 {
 private:
@@ -17,16 +13,16 @@ private:
 	T* data;						// pointer on array of elements
 
 public:
-	
+
 	// default constructor
-	Matrix<T>()							
+	Matrix<T>()
 	{
 		cols = rows = 0;
-		data = nullptr; 
+		data = nullptr;
 	}
 
 	// constructor
-	Matrix<T>(int r, int c = 1)			
+	Matrix<T>(int r, int c = 1)
 	{
 		rows = r;
 		cols = c;
@@ -44,7 +40,7 @@ public:
 			for (auto element : row) {
 				data[i] = element;
 				i++;
- 			}
+			}
 		}
 	}
 
@@ -52,45 +48,52 @@ public:
 	{
 		rows = matrix.size();
 		cols = 1;
-		data = new T[rows*cols];
+		data = new T[rows * cols];
 		int i = 0;
 		for (auto row : matrix) {
 			data[i] = row;
 			i++;
 		}
 	}
-	
+
 	// copy constructor
 
 	Matrix<T>(const Matrix& matrix)
 	{
 		rows = matrix.rows;
 		cols = matrix.cols;
-		if(data != nullptr){
-
+		if (data != nullptr) {
 			delete[] data;
 		}
 		data = new T[rows * cols];
-		for (int i = 0; i < rows*cols; i++)
+		for (int i = 0; i < rows * cols; i++)
 		{
 			data[i] = matrix.data[i];
 		}
 	}
-	
+
 
 	// move constructor
-	Matrix<T>(Matrix&& other)			
+	Matrix<T>(Matrix&& other)
 	{
 		rows = other.rows;
 		cols = other.cols;
-		data = other.data;
-		other.data = nullptr;
+		for (int i = 0; i < rows * cols; i++)
+		{
+			data[i] = other.data[i];
+		}
+		if (other.data != nullptr) {
+			delete[] other.data;
+		}
 		other.rows = other.cols = 0;
 	}
 
 	// operator = 
-	Matrix<T> operator = (const Matrix<T> matrix) {		
+	Matrix<T> operator=(const Matrix<T>& matrix) {
 		if (rows * cols < matrix.rows * matrix.cols) {
+			if (data != nullptr) {
+				delete[] data;
+			}
 			data = new T[matrix.rows * matrix.cols];
 		}
 		rows = matrix.rows;
@@ -104,7 +107,7 @@ public:
 	}
 
 	// input (operator >>)
-	friend istream& operator >>(istream& in, Matrix<T> &matrix)  
+	friend istream& operator >>(istream& in, Matrix<T>& matrix)
 	{
 		for (int i = 0; i < matrix.rows; i++)
 		{
@@ -117,13 +120,13 @@ public:
 	}
 
 	// output (operator <<)
-	friend ostream& operator <<(ostream& out, Matrix<T> matrix)   
+	friend ostream& operator <<(ostream& out, Matrix<T> matrix)
 	{
 		for (int i = 0; i < matrix.rows; i++)
 		{
 			for (int j = 0; j < matrix.cols; j++)
 			{
-				out << matrix.data[i * matrix.cols + j]<<'\t';
+				out << matrix.data[i * matrix.cols + j] << '\t';
 			}
 			out << endl;
 		}
@@ -132,7 +135,7 @@ public:
 	}
 
 	// operator ()  
-	T &operator () (const int &r, const int&c) {	
+	T& operator () (const int& r, const int& c) {
 
 		if (r > rows || c > cols)
 		{
@@ -144,28 +147,28 @@ public:
 
 
 	// matrix addition (operator +)
-	Matrix<T> operator + ( const Matrix<T> &summand)  
+	Matrix<T> operator + (const Matrix<T>& summand)
 	{
 		if (rows != summand.rows || cols != summand.cols)
 		{
-			throw invalid_argument ("the sizes of the matrices do not match.\n");
+			throw invalid_argument("the sizes of the matrices do not match.\n");
 		}
-		Matrix <T> summ(rows, cols); 
-		for (int i = 0; i < rows*cols; i++)
+		Matrix <T> summ(rows, cols);
+		for (int i = 0; i < rows * cols; i++)
 		{
 			summ.data[i] = data[i] + summand.data[i];
 		}
 		return summ;
 	}
-	
+
 
 	// matrix subtraction (operator -)
-	Matrix<T> operator - (const Matrix<T> &a)		 
+	Matrix<T> operator - (const Matrix<T>& a)
 	{
 		if (rows != a.rows || cols != a.cols)
 		{
-			throw invalid_argument ("the sizes of the matrices do not match.\n");
-			
+			throw invalid_argument("the sizes of the matrices do not match.\n");
+
 		}
 		Matrix <T> minus(rows, cols);
 		for (int i = 0; i < rows * cols; i++)
@@ -176,10 +179,10 @@ public:
 	}
 
 	// multiplying matrix by a number (operator *)
-	Matrix<T> operator *(const T &n)					
+	Matrix<T> operator *(const T& n)
 	{
 		Matrix <T> m(rows, cols);
-		for (int i = 0; i < rows * cols; i++) 
+		for (int i = 0; i < rows * cols; i++)
 		{
 			m.data[i] = data[i] * n;
 		}
@@ -187,10 +190,10 @@ public:
 	}
 
 	// matrix multiplication (operator *)
-	Matrix <T> operator * (const Matrix<T> &b)		
+	Matrix <T> operator * (const Matrix<T>& b)
 	{
 		if (cols != b.rows) {
-			throw invalid_argument( "The number of columns of the left matrix does not equal to the number of rows of the right matrix.\n");
+			throw invalid_argument("The number of columns of the left matrix does not equal to the number of rows of the right matrix.\n");
 		}
 		Matrix<T> c(rows, b.cols);					// product matrix
 		for (int i = 0; i < rows; i++)
@@ -208,13 +211,13 @@ public:
 	}
 
 	// matrix addition (operator +=)
-	Matrix <T> operator += (const Matrix<T> &summand)  
+	Matrix <T> operator += (const Matrix<T>& summand)
 	{
 		if (rows != summand.rows || cols != summand.cols)
 		{
-			throw invalid_argument ("the sizes of the matrices do not match.\n");
+			throw invalid_argument("the sizes of the matrices do not match.\n");
 		}
-		
+
 		for (int i = 0; i < rows * cols; i++)
 		{
 			data[i] += summand.data[i];
@@ -224,7 +227,7 @@ public:
 	}
 
 	// matrix subtraction (operator -=)
-	Matrix <T> operator -= (const Matrix<T> &a)		
+	Matrix <T> operator -= (const Matrix<T>& a)
 	{
 		if (rows != a.rows || cols != a.cols)
 		{
@@ -238,7 +241,7 @@ public:
 	}
 
 	// multiplying matrix by a number (operator *=)
-	Matrix <T> operator *= (const T &n)				
+	Matrix <T> operator *= (const T& n)
 	{
 		for (int i = 0; i < rows * cols; i++)
 		{
@@ -246,7 +249,7 @@ public:
 		}
 		return *this;
 	}
-	 
+
 	void clear()
 	{
 		cols = rows = 0;
@@ -264,10 +267,12 @@ public:
 		}
 		return *this;
 	}
-	
+
 
 	~Matrix<T>()
 	{
-		delete[] data;
+		if (data != nullptr) {
+			delete[] data;
+		}
 	}
 };

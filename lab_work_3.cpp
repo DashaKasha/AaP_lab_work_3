@@ -39,7 +39,7 @@ int main()
 
     // insert_edge/node
 
-    //graph.erase_node("A");
+    graph.erase_node("A");
     cout << "the size of graph after deleting A: " << graph.size() << endl;
     graph.insert_node("A");
 
@@ -60,12 +60,14 @@ int main()
 
     Graph<string, int> graph1 = graph;
     cout << graph1.size() << endl;
-    //graph1.erase_node("D");
-    //cout << "the size of graph1 after erase_node D: " << graph1.size() << endl;
+    graph1.erase_node("D");
+    cout << "the size of graph1 after erase_node D: " << graph1.size() << endl;
 
 
     graph1.clear_edges();
-    cout<< "degree_out node A (after graph1.clear_edges): " << graph1.degree_out("A") << endl;
+    cout << "degree_out node A (after graph1.clear_edges): " << graph1.degree_out("A") << endl;
+
+    cout << graph.save_to_file("D:/учеба/C++/lab_work_3/lab_work_3/graph.txt");
 
 	return 0;
 }
