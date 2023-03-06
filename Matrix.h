@@ -89,7 +89,7 @@ public:
 	}
 
 	// operator = 
-	Matrix<T> operator=(const Matrix<T>& matrix) {
+	Matrix<T> operator=(const Matrix<T> &matrix) {
 		if (rows * cols < matrix.rows * matrix.cols) {
 			if (data != nullptr) {
 				delete[] data;
@@ -267,7 +267,7 @@ public:
 		}
 		return *this;
 	}
-
+	
 
 	~Matrix<T>()
 	{

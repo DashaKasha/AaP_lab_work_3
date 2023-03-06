@@ -39,17 +39,17 @@ int main()
 
     // insert_edge/node
 
-    graph.erase_node("A");
-    cout << "the size of graph after deleting A: " << graph.size() << endl;
-    graph.insert_node("A");
+    //graph.erase_node("A");
+    //cout << "the size of graph after deleting A: " << graph.size() << endl;
+    //graph.insert_node("A");
 
 
     graph.insert_edge("B", "D", 2);
     cout << "degree_out node B (after insert_edge B-D): " << graph.degree_out("B") << endl;
 
-    cout << "degree_out node A (before insert_or_assign_edge B-D): " << graph.degree_out("A") << endl;
+    cout << "degree_out node A (before insert_or_assign_edge A-B): " << graph.degree_out("A") << endl;
     graph.insert_or_assign_edge("A", "B", 3);
-    cout << "degree_out node A (after insert_or_assign_edge B-D): " << graph.degree_out("A") << endl;
+    cout << "degree_out node A (after insert_or_assign_edge A-B): " << graph.degree_out("A") << endl;
 
 
     graph.erase_edges_go_from("B");
@@ -67,7 +67,8 @@ int main()
     graph1.clear_edges();
     cout << "degree_out node A (after graph1.clear_edges): " << graph1.degree_out("A") << endl;
 
-    cout << graph.save_to_file("D:/учеба/C++/lab_work_3/lab_work_3/graph.txt");
+    cout << "saving to file: " << graph.save_to_file("D:/учеба/C++/lab_work_3/lab_work_3/graph.txt");
+    
 
 	return 0;
 }
